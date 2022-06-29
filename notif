@@ -1,257 +1,215 @@
-local isExistance = false
+local TweenService = game:GetService("TweenService");
+local RunService = game:GetService("RunService");
+local TextService = game:GetService("TextService");
 
-local Notifyt = Instance.new("ScreenGui")
-local NotificationParent = Instance.new("ScrollingFrame")
-local UIListLayout = Instance.new("UIListLayout")
-local UIPadding = Instance.new("UIPadding")
-local Notification = Instance.new("Frame")
-local Container = Instance.new("ImageButton")
-local Top = Instance.new("ImageLabel")
-local Exit = Instance.new("Frame")
-local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
-local Icon = Instance.new("ImageLabel")
-local Button = Instance.new("TextButton")
-local Title = Instance.new("TextLabel")
-local Accent = Instance.new("Frame")
-local Body = Instance.new("Frame")
-local Content = Instance.new("TextLabel")
-local UIPadding_2 = Instance.new("UIPadding")
-local UISizeConstraint = Instance.new("UISizeConstraint")
+local Player = game:GetService("Players").LocalPlayer;
 
-if game.CoreGui:FindFirstChild("Notifyt") then
-	isExistance = true
-	Notifyt = game.CoreGui.Notifyt
-	NotificationParent = Notifyt.NotificationParent
-	Notification = Notifyt.Notification
+local NotifGui = Instance.new("ScreenGui");
+NotifGui.Name = "AkaliNotif";
+NotifGui.Parent = RunService:IsStudio() and Player.PlayerGui or game:GetService("CoreGui");
+
+local Container = Instance.new("Frame");
+Container.Name = "Container";
+Container.Position = UDim2.new(0, 20, 0.5, -20);
+Container.Size = UDim2.new(0, 300, 0.5, 0);
+Container.BackgroundTransparency = 1;
+Container.Parent = NotifGui;
+
+local function Image(ID, Button)
+	local NewImage = Instance.new(string.format("Image%s", Button and "Button" or "Label"));
+	NewImage.Image = ID;
+	NewImage.BackgroundTransparency = 1;
+	return NewImage;
 end
 
-Notifyt.Name = "Notifyt"
-Notifyt.Parent = game.CoreGui
-Notifyt.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-Notifyt.ResetOnSpawn = false
-
-NotificationParent.Name = "NotificationParent"
-NotificationParent.Parent = Notifyt
-NotificationParent.AnchorPoint = Vector2.new(1, 0)
-NotificationParent.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-NotificationParent.BackgroundTransparency = 1.000
-NotificationParent.BorderSizePixel = 0
-NotificationParent.ClipsDescendants = false
-NotificationParent.Position = UDim2.new(1, 0, 0, -25)
-NotificationParent.Selectable = false
-NotificationParent.Size = UDim2.new(0, 275, 1, 0)
-NotificationParent.CanvasSize = UDim2.new(0, 0, 0, 0)
-NotificationParent.ScrollBarThickness = 0
-NotificationParent.ScrollingEnabled = false
-
-UIListLayout.Parent = NotificationParent
-UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
-UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
-UIListLayout.Padding = UDim.new(0, 5)
-
-UIPadding.Parent = NotificationParent
-UIPadding.PaddingRight = UDim.new(0, 25)
-
-Notification.Name = "Notification"
-Notification.Parent = Notifyt
-Notification.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Notification.BackgroundTransparency = 1.000
-Notification.BorderSizePixel = 0
-Notification.Position = UDim2.new(1, 0, 0, 0)
-Notification.Size = UDim2.new(0, 250, 0, 0)
-Notification.Visible = false
-
-Container.Name = "Container"
-Container.Parent = Notification
-Container.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Container.BackgroundTransparency = 1.000
-Container.BorderSizePixel = 0
-Container.Position = UDim2.new(1.14999998, 0, 0, 0)
-Container.Size = UDim2.new(1, 0, 0, 0)
-Container.Image = "rbxassetid://6296184185"
-Container.ImageColor3 = Color3.fromRGB(0, 0, 0)
-Container.ImageTransparency = 0.500
-Container.ScaleType = Enum.ScaleType.Slice
-Container.SliceCenter = Rect.new(512, 512, 512, 512)
-Container.SliceScale = 0.012
-
-Top.Name = "Top"
-Top.Parent = Container
-Top.BackgroundColor3 = Color3.fromRGB(248, 248, 248)
-Top.BackgroundTransparency = 1.000
-Top.BorderSizePixel = 0
-Top.Size = UDim2.new(1, 0, 0, 32)
-Top.ZIndex = 3
-Top.Image = "rbxassetid://6276641225"
-Top.ImageColor3 = Color3.fromRGB(0, 0, 0)
-Top.ImageTransparency = 0.600
-Top.ScaleType = Enum.ScaleType.Slice
-Top.SliceCenter = Rect.new(256, 256, 256, 256)
-Top.SliceScale = 0.022
-
-Exit.Name = "Exit"
-Exit.Parent = Top
-Exit.AnchorPoint = Vector2.new(1, 0)
-Exit.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Exit.BackgroundTransparency = 1.000
-Exit.BorderColor3 = Color3.fromRGB(27, 42, 53)
-Exit.BorderSizePixel = 0
-Exit.ClipsDescendants = true
-Exit.LayoutOrder = 3
-Exit.Position = UDim2.new(1, 0, 0, 0)
-Exit.Size = UDim2.new(1, 0, 1, 0)
-
-UIAspectRatioConstraint.Parent = Exit
-
-Icon.Name = "Icon"
-Icon.Parent = Exit
-Icon.AnchorPoint = Vector2.new(0.5, 0.5)
-Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Icon.BackgroundTransparency = 1.000
-Icon.BorderSizePixel = 0
-Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
-Icon.Size = UDim2.new(0.5, 0, 0.5, 0)
-Icon.Image = "http://www.roblox.com/asset/?id=6415685859"
-Icon.ScaleType = Enum.ScaleType.Fit
-
-Button.Name = "Button"
-Button.Parent = Exit
-Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Button.BackgroundTransparency = 1.000
-Button.BorderSizePixel = 0
-Button.Size = UDim2.new(1, 0, 1, 0)
-Button.ZIndex = 2
-Button.Font = Enum.Font.SourceSans
-Button.Text = ""
-Button.TextColor3 = Color3.fromRGB(0, 0, 0)
-Button.TextSize = 14.000
-
-Title.Name = "Title"
-Title.Parent = Top
-Title.AnchorPoint = Vector2.new(1, 0)
-Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Title.BackgroundTransparency = 1.000
-Title.BorderSizePixel = 0
-Title.Position = UDim2.new(1, 0, 0, 0)
-Title.Size = UDim2.new(1, -12, 1, 0)
-Title.Font = Enum.Font.GothamSemibold
-Title.Text = "Notification"
-Title.TextColor3 = Color3.fromRGB(240, 240, 240)
-Title.TextSize = 14.000
-Title.TextWrapped = true
-Title.TextXAlignment = Enum.TextXAlignment.Left
-
-Accent.Name = "Accent"
-Accent.Parent = Top
-Accent.AnchorPoint = Vector2.new(0, 1)
-Accent.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Accent.BackgroundTransparency = 0.700
-Accent.BorderSizePixel = 0
-Accent.Position = UDim2.new(0, 0, 1, 0)
-Accent.Size = UDim2.new(1, 0, 0, 1)
-
-Body.Name = "Body"
-Body.Parent = Container
-Body.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Body.BackgroundTransparency = 1.000
-Body.BorderSizePixel = 0
-Body.ClipsDescendants = true
-Body.Position = UDim2.new(0, 0, 0, 32)
-Body.Size = UDim2.new(1, 0, 0, 0)
-
-Content.Name = "Content"
-Content.Parent = Body
-Content.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Content.BackgroundTransparency = 1.000
-Content.BorderSizePixel = 0
-Content.Size = UDim2.new(1, 0, 1, 0)
-Content.Font = Enum.Font.Gotham
-Content.Text = "Message Here. This is an example message prompt."
-Content.TextColor3 = Color3.fromRGB(230, 230, 230)
-Content.TextSize = 14.000
-Content.TextWrapped = true
-Content.TextXAlignment = Enum.TextXAlignment.Left
-Content.TextYAlignment = Enum.TextYAlignment.Top
-
-UIPadding_2.Parent = Body
-UIPadding_2.PaddingBottom = UDim.new(0, 12)
-UIPadding_2.PaddingLeft = UDim.new(0, 12)
-UIPadding_2.PaddingRight = UDim.new(0, 12)
-UIPadding_2.PaddingTop = UDim.new(0, 12)
-
-UISizeConstraint.Parent = Container
-UISizeConstraint.MaxSize = Vector2.new(math.huge, 120)
-
-Notification.AutomaticSize = Enum.AutomaticSize.Y
-Container.AutomaticSize = Enum.AutomaticSize.Y
-Body.AutomaticSize = Enum.AutomaticSize.Y
-
--- remove clones: 
-
-if isExistance then
-	UIListLayout:Destroy()
-	UIPadding:Destroy()
-	Container:Destroy()
+local function Round2px()
+	local NewImage = Image("http://www.roblox.com/asset/?id=5761488251");
+	NewImage.ScaleType = Enum.ScaleType.Slice;
+	NewImage.SliceCenter = Rect.new(2, 2, 298, 298);
+	NewImage.ImageColor3 = Color3.fromRGB(30, 30, 30);
+	return NewImage;
 end
 
--- script converted by saypotato
+local function Shadow2px()
+	local NewImage = Image("http://www.roblox.com/asset/?id=5761498316");
+	NewImage.ScaleType = Enum.ScaleType.Slice;
+	NewImage.SliceCenter = Rect.new(17, 17, 283, 283);
+	NewImage.Size = UDim2.fromScale(1, 1) + UDim2.fromOffset(30, 30);
+	NewImage.Position = -UDim2.fromOffset(15, 15);
+	NewImage.ImageColor3 = Color3.fromRGB(30, 30, 30);
+	return NewImage;
+end
 
-local T = game:GetService('TweenService')
-local t = TweenInfo.new(0.5, Enum.EasingStyle.Quint)
-local tp = NotificationParent
+local Padding = 10;
+local DescriptionPadding = 10;
+local InstructionObjects = {};
+local TweenTime = 1;
+local TweenStyle = Enum.EasingStyle.Sine;
+local TweenDirection = Enum.EasingDirection.Out;
 
-function prompt(title, text, closeTime, close)
-	local Prompt = Notification:Clone()
-	local Sound = Instance.new('Sound', Notification)
+local LastTick = tick();
 
-	Prompt.Visible = true
-	Prompt.Container.Top.Title.Text = title
-	Prompt.Container.Body.Content.Text = text
+local function CalculateBounds(TableOfObjects)
+	local TableOfObjects = typeof(TableOfObjects) == "table" and TableOfObjects or {};
+	local X, Y = 0, 0;
+	for _, Object in next, TableOfObjects do
+		X += Object.AbsoluteSize.X;
+		Y += Object.AbsoluteSize.Y;
+	end
+	return {X = X, Y = Y, x = X, y = Y};
+end
 
-	Prompt.Parent = NotificationParent
-	Sound.SoundId = "rbxassetid://1074291066"
-	Sound:Play()
+local CachedObjects = {};
 
-	T:Create(Prompt.Container, t, {Position = UDim2.new(0, 0, 0, 0)}):Play()
-
-	-- auto size
-	Prompt.AutomaticSize = Enum.AutomaticSize.Y
-	Prompt.Container.AutomaticSize = Enum.AutomaticSize.Y
-	Prompt.Container.Body.AutomaticSize = Enum.AutomaticSize.Y
-	Prompt.Container.Body.Content.AutomaticSize = Enum.AutomaticSize.Y
-
-	Prompt.Container.Top.Exit.Button.MouseButton1Click:Connect(function()
-		T:Create(Prompt.Container, t, {Position = UDim2.new(1.15, 0, 0, 0)}):Play()
-		wait(0.48)
-		Prompt:Destroy()
-	end)
-	
-	Prompt.Container.Top.Exit.Visible = close
-
-	wait(1)
-
-	Sound:Destroy()
-	
-	spawn(function()
-		if typeof(closeTime) == "number" then
-			task.wait(closeTime)
-			local s = pcall(function()
-				T:Create(Prompt.Container, t, {Position = UDim2.new(1.15, 0, 0, 0)}):Play()
-				wait(0.48)
-				Prompt:Destroy()
-			end)
-			if not s then
-				print('Already closed.')
+local function Update()
+	local DeltaTime = tick() - LastTick;
+	local PreviousObjects = {};
+	for CurObj, Object in next, InstructionObjects do
+		local Label, Delta, Done = Object[1], Object[2], Object[3];
+		if (not Done) then
+			if (Delta < TweenTime) then
+				Object[2] = math.clamp(Delta + DeltaTime, 0, 1);
+				Delta = Object[2];
+			else
+				Object[3] = true;
 			end
 		end
-	end)
+		local NewValue = TweenService:GetValue(Delta, TweenStyle, TweenDirection);
+		local CurrentPos = Label.Position;
+		local PreviousBounds = CalculateBounds(PreviousObjects);
+		local TargetPos = UDim2.new(0, 0, 0, PreviousBounds.Y + (Padding * #PreviousObjects));
+		Label.Position = CurrentPos:Lerp(TargetPos, NewValue);
+		table.insert(PreviousObjects, Label);
+	end
+	CachedObjects = PreviousObjects;
+	LastTick = tick();
 end
 
-local lib = {}
+RunService:BindToRenderStep("UpdateList", 0, Update);
 
-function lib.prompt(title, description, closeTime)
-    prompt(title, description, closeTime, true)
+local TitleSettings = {
+	Font = Enum.Font.GothamSemibold;
+	Size = 14;
+}
+
+local DescriptionSettings = {
+	Font = Enum.Font.Gotham;
+	Size = 14;
+}
+
+local MaxWidth = (Container.AbsoluteSize.X - Padding - DescriptionPadding);
+
+local function Label(Text, Font, Size, Button)
+	local Label = Instance.new(string.format("Text%s", Button and "Button" or "Label"));
+	Label.Text = Text;
+	Label.Font = Font;
+	Label.TextSize = Size;
+	Label.BackgroundTransparency = 1;
+	Label.TextXAlignment = Enum.TextXAlignment.Left;
+	Label.RichText = true;
+	Label.TextColor3 = Color3.fromRGB(255,0,127);
+	return Label;
 end
 
-return lib
+local function TitleLabel(Text)
+	return Label(Text, TitleSettings.Font, TitleSettings.Size);
+end
+
+local function DescriptionLabel(Text)
+	return Label(Text, DescriptionSettings.Font, DescriptionSettings.Size);
+end
+
+local PropertyTweenOut = {
+	Text = "TextTransparency",
+	Fram = "BackgroundTransparency",
+	Imag = "ImageTransparency"
+}
+
+local function FadeProperty(Object)
+	local Prop = PropertyTweenOut[string.sub(Object.ClassName, 1, 4)];
+	TweenService:Create(Object, TweenInfo.new(0.25, TweenStyle, TweenDirection), {
+		[Prop] = 1;
+	}):Play();
+end
+
+local function SearchTableFor(Table, For)
+	for _, v in next, Table do
+		if (v == For) then
+			return true;
+		end
+	end
+	return false;
+end
+
+local function FindIndexByDependency(Table, Dependency)
+	for Index, Object in next, Table do
+		if (typeof(Object) == "table") then
+			local Found = SearchTableFor(Object, Dependency);
+			if (Found) then
+				return Index;
+			end
+		else
+			if (Object == Dependency) then
+				return Index;
+			end
+		end
+	end
+end
+
+local function ResetObjects()
+	for _, Object in next, InstructionObjects do
+		Object[2] = 0;
+		Object[3] = false;
+	end
+end
+
+local function FadeOutAfter(Object, Seconds)
+	wait(Seconds);
+	FadeProperty(Object);
+	for _, SubObj in next, Object:GetDescendants() do
+		FadeProperty(SubObj);
+	end
+	wait(0.25);
+	table.remove(InstructionObjects, FindIndexByDependency(InstructionObjects, Object));
+	ResetObjects();
+end
+
+return {
+	Notify = function(Properties)
+		local Properties = typeof(Properties) == "table" and Properties or {};
+		local Title = Properties.Title;
+		local Description = Properties.Description;
+		local Duration = Properties.Duration or 5;
+		if (Title) or (Description) then -- Check that user has provided title and/or description
+			local Y = Title and 26 or 0;
+			if (Description) then
+				local TextSize = TextService:GetTextSize(Description, DescriptionSettings.Size, DescriptionSettings.Font, Vector2.new(0, 0));
+				for i = 1, math.ceil(TextSize.X / MaxWidth) do
+					Y += TextSize.Y;
+				end
+				Y += 8;
+			end
+			local NewLabel = Round2px();
+			NewLabel.Size = UDim2.new(1, 0, 0, Y);
+			NewLabel.Position = UDim2.new(-1, 20, 0, CalculateBounds(CachedObjects).Y + (Padding * #CachedObjects));
+			if (Title) then
+				local NewTitle = TitleLabel(Title);
+				NewTitle.Size = UDim2.new(1, -10, 0, 26);
+				NewTitle.Position = UDim2.fromOffset(10, 0);
+				NewTitle.Parent = NewLabel;
+			end
+			if (Description) then
+				local NewDescription = DescriptionLabel(Description);
+				NewDescription.TextWrapped = true;
+				NewDescription.Size = UDim2.fromScale(1, 1) + UDim2.fromOffset(-DescriptionPadding, Title and -26 or 0);
+				NewDescription.Position = UDim2.fromOffset(10, Title and 26 or 0);
+				NewDescription.TextYAlignment = Enum.TextYAlignment[Title and "Top" or "Center"];
+				NewDescription.Parent = NewLabel;
+			end
+			Shadow2px().Parent = NewLabel;
+			NewLabel.Parent = Container;
+			table.insert(InstructionObjects, {NewLabel, 0, false});
+			coroutine.wrap(FadeOutAfter)(NewLabel, Duration);
+		end
+	end,
+}
